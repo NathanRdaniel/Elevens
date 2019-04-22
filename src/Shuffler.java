@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * This class provides a convenient way to test shuffling methods.
  */
@@ -40,6 +42,8 @@ public class Shuffler {
 			System.out.println();
 		}
 		System.out.println();
+		System.out.println(arePermutations(values1, values2));
+		System.out.println();
 	}
 
 
@@ -50,8 +54,30 @@ public class Shuffler {
 	 * @param values is an array of integers simulating cards to be shuffled.
 	 */
 	public static void perfectShuffle(int[] values) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 3 *** */
+
+		int[] temp = new int[values.length];
+		int mid = (values.length + 1) / 2;
+	  
+		// Interleave elements 0 ... mid-1 with elements mid ... length-1
+		int pos = 0;
+		
+		for ( int i = 0; i < mid; i++) {
+		 temp[pos] = values[i];
+		 pos += 2;
+		}
+		pos = 1;
+		for ( int i = mid; i < values.length; i++) {
+		 temp[pos] = values[i];
+		 pos += 2;
+		}
+	  
+		// Copy elements back to values
+		for (int i = 0; i < values.length; i++) {
+		 values[i] = temp[i];
+		}
 	}
+
+
 
 	/**
 	 * Apply an "efficient selection shuffle" to the argument.
@@ -65,6 +91,35 @@ public class Shuffler {
 	 * @param values is an array of integers simulating cards to be shuffled.
 	 */
 	public static void selectionShuffle(int[] values) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 3 *** */
+	int temp;
+	int r;
+	for (int k = 3; k > 0; k--){
+	r = (int) (Math.random()* 4);
+		temp = values[k];
+		values[k] = values[r];
+		values[r] = temp;
+	
 	}
+	
+	}
+	public static boolean arePermutations(int[] values1, int[] values2){
+		int count = 0;
+		if (values1.length != values2.length){
+			return false;
+		}
+		for (int i = 0; i < values1.length; i ++){
+			for (int j = 0; j < values2.length; j ++){
+				if (values1[i] == values2[j]){
+					count ++;
+				} 
+			}
+		}
+		if (count == values1.length){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
 }
