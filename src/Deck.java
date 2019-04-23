@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * The Deck class represents a shuffled deck of cards.
@@ -12,14 +13,14 @@ public class Deck {
 	 * cards contains all the cards in the deck.
 	 */
 	private List<Card> cards;
-
+	private int[] values;
 	/**
 	 * size is the number of not-yet-dealt cards.
 	 * Cards are dealt from the top (highest index) down.
 	 * The next card to be dealt is at size - 1.
 	 */
 	private int size;
-
+	
 
 	/**
 	 * Creates a new <code>Deck</code> instance.<BR>
@@ -30,15 +31,17 @@ public class Deck {
 	 * @param values is an array containing all of the card point values.
 	 */
 	public Deck(String[] ranks, String[] suits, int[] values) {
+		
 		cards = new ArrayList<Card>();
 		for (int j = 0; j < ranks.length; j++) {
-			for (String suitString : suits) {
-				cards.add(new Card(ranks[j], suitString, values[j]));
-			}
+		 for (String suitString : suits) {
+		  cards.add(new Card(ranks[j], suitString, values[j]));
+		 }
 		}
 		size = cards.size();
-		shuffle();
-	}
+		this.values = values;
+		shuffle(cards);
+	   }
 
 
 	/**
@@ -59,11 +62,18 @@ public class Deck {
 
 	/**
 	 * Randomly permute the given collection of cards
-	 * and reset the size to represent the entire deck.
-	 */
-	public void shuffle() {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
-	}
+xxx	 */
+	public void shuffle( List<Card> cards) {
+		//Traverses array from the last position.
+		 for(int k = cards.size() - 1; k >= 0; k--) {
+				int r = (int)(Math.random() * k);    //Randomizes within the array.
+				r = (int) (Math.random()* 4);
+				Card temp = cards.get(k);
+				cards.add(k, cards.get(r));
+				cards.add(r, temp);
+	         //Replaces value at k with value of the temporary holder.
+			  }
+	   }
 
 	/**
 	 * Deals a card from this deck.
